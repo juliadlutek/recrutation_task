@@ -7,13 +7,9 @@
 <#assign sorting = http.request.parameters.name.get("sort", "") />
  
 <#-- page size -->
-<#assign pageSize = coreNode.settings.name.get("layout.messages_per_page_linear", "10")?number />
-<#if user.registered>
-   <#assign pageSizeUser = settings.name.get("layout.messages_per_page_linear") />
-   <#if pageSizeUser?number != pageSize?number>
-       <#assign pageSize = pageSizeUser />
-   </#if>
-</#if>
+<#-- I want to always display 30 posts per page, so I have to assign pageSize variable to 30 instead of gettind it from coreNode object -->
+<#assign pageSize = 30 />
+<#-- I also need to remove the conditional statement, because I want to display 30 posts no matter if the user is registered or not -->
  
 <#if webuisupport.path.parameters.name.get("label-name")??>
    <#assign label = webuisupport.path.parameters.name.get("label-name").getText() />
