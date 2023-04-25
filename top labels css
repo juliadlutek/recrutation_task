@@ -1,11 +1,14 @@
 .lia-quilt-column-side-content .lia-labels-list-sortable .lia-panel-heading-bar .dropdown-default-item .default-menu-option {
-    color: #1966FF;
     font-size: 20px;
     font-weight: bold;
     padding: 0;
+    /* Make element not clickable */
+    pointer-events: none;
 }
 
 .lia-quilt-column-side-content .lia-labels-list-sortable .lia-panel-heading-bar .dropdown-default-item .default-menu-option:after {
     color: #1966FF;
     margin-left: 10px;
+    /* Hide the dropdown arrow */
+    display: none;
 }
