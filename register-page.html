@@ -113,12 +113,12 @@
 }
 
 .benefits-content-list-element {
-    width: calc(100% / 6);
+    /* Change the scaling of the benefits section below 900px screen size - divide elements into 2 rows with 3 */
+    width: calc(100% / 3);
     display: flex;
     flex-direction: column;
     box-sizing: border-box;
     padding: 20px 20px 30px 20px;
-    min-width: min-content;
 }
 
 .benefits-content-list-icon {
@@ -127,6 +127,15 @@
 
 .benefits-content-list-icon > img {
     height: 60px;
+    margin: 5px;
+    /* use transition to make animation more smooth */
+    transition: 0.3s;
+}
+
+/* Make icons a little bit bigger on hover, use margin to minimize the "jumping text" effect */
+.benefits-content-list-icon > img:hover {
+    height: 70px;
+    margin: 0;
 }
 
 .benefits-content-list-description, .benefits-content-list-description-blue {
@@ -680,8 +689,13 @@ span.lia-button-link-arrow.lia-button-link-arrow-black {
     opacity: 1;
 }
 
-
-
+/* Move initial benefits styles to media queries so that they only apply to screens larger than 900px */
+@media (min-width: 900px) {
+  .benefits-content-list-element {
+    min-width: min-content;
+    width: calc(100% / 6);
+  }
+}
 
 </style>
 
