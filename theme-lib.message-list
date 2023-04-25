@@ -145,7 +145,8 @@
        <#assign msg_status_txt = "theme-lib.general.thread-floated" />
    </#if>
    <#if msg.conversation.solved>
-       <#assign solved = "custom-thread-solved" />
+       <#-- I have to change value of the "solved" variable to rename class -->
+       <#assign solved = "custom-thread-solved-new" />
        <#assign msg_status_icon = "custom-thread-solved" />
        <#assign msg_status_txt = "theme-lib.general.thread-solved" />
    </#if>
@@ -159,6 +160,7 @@
    <#assign labels = commonUtils.executeLiQLQuery(qry)![] />
 
    <#-- custom message tile -->
+    <#-- Name of class for solved threads is assigned to the "solved" variable, so I need to change its value to change the class name -->
    <article class="custom-message-tile ${escalated} ${locked} ${solved} ${floated} ${requires_moderation} ${unread}">
        <#-- batch processing -->
        <#local showBatchProcessingCheckBox = "false"/>
