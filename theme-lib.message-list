@@ -30,6 +30,8 @@
 <#assign basePagingQry = "SELECT count(*) FROM messages WHERE depth = 0 AND board.id = '${coreNode.id}' " />
 <#assign whereClause = label_query />
  
+<#-- The database query is built from the baseQry, whereClause (which contains the label_query value), orderClause and limitClause -->
+<#-- I need to overwrite these values ​​inside the switch statement so that they return the appropriate results for the selected sort type -->
 <#switch sorting>
    <#case "kudos">
        <#assign orderClause = "ORDER BY kudos.sum(weight) DESC " />
@@ -39,6 +41,22 @@
    <#break>
    <#case "replies">
        <#assign orderClause = "ORDER BY replies.count(*) DESC " />
+   <#break>
+   <#-- I want to add a sort method that will return posts from newest to oldest, so I need to set orderClause to sort the query results descending by time the post was added -->
+   <#case "newest">
+       <#assign orderClause = "ORDER BY post_time DESC " />
+   <#break>
+   <#-- I want to add sort method for the lowest number of kudos, so I need to set an orderClause to sort the query results ascending by number of kudos -->
+   <#case "kudos-asc">
+       <#assign orderClause = "ORDER BY kudos.sum(weight) ASC " />
+   <#break>
+   <#-- I want to return only questions that have no answers, so I need to set whereClause to return questions with 0 answers, I have to include label_query in my clause-->
+   <#case "unanswered">
+       <#assign whereClause = label_query + " AND replies.count(*) = 0 " />
+   <#break>
+   <#-- I want to return only questions that have no solution, so I need to set whereClause to return questions with conversation.solved value set to false, I have to include label_query in my clause-->
+   <#case "no-solution">
+       <#assign whereClause = label_query + " AND conversation.solved = false " />
    <#break>
    <#default>
        <#assign orderClause = "ORDER BY conversation.last_post_time DESC " />
@@ -72,6 +90,11 @@
                    <option value="views" <#if sorting == 'views'>selected</#if>>${text.format("theme-lib.community-activity.views")}</option>
                    <option value="replies" <#if sorting == 'replies'>selected</#if>>${text.format("theme-lib.community-activity.replies")}</option>
                    <option value="kudos" <#if sorting == 'kudos'>selected</#if>>${text.format("theme-lib.community-activity.kudos")}</option>
+                   <#-- Add new sorting methods to the dropdown menu -->
+                   <option value="newest" <#if sorting == 'newest'>selected</#if>>${text.format("theme-lib.community-activity.newest")}</option>
+                   <option value="kudos-asc" <#if sorting == 'kudos-asc'>selected</#if>>${text.format("theme-lib.community-activity.kudos-asc")}</option>
+                   <option value="unanswered" <#if sorting == 'unanswered'>selected</#if>>${text.format("theme-lib.community-activity.unanswered")}</option>
+                   <option value="no-solution" <#if sorting == 'no-solution'>selected</#if>>${text.format("theme-lib.community-activity.no-solution")}</option>
                </select>
                <#if page.interactionStyle=="idea">
                  <@component id="custom.idea.status.label" />
