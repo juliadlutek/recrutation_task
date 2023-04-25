@@ -573,6 +573,21 @@
         text-decoration: none;
 }
 
+/* Create a lia-button-purple class that gives the button a purple color in a similar style to the other buttons on the page */
+.lia-button-purple {
+    background: #6938b3;
+    border: 2px solid #6938b3;
+    color: #FFFFFF;
+
+  }
+
+.lia-button-purple:hover {
+    background: #7e53bf;
+    border: 2px solid #7e53bf;
+    color: #FFFFFF;
+    text-decoration: none;
+  }
+
 
 /*New link button*/
 
@@ -704,6 +719,29 @@ span.lia-button-link-arrow.lia-button-link-arrow-black {
 <script defer src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script defer src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css" rel="stylesheet preconnect">
+
+<script>
+  // Add a script adding a new div with a violet button inside in it (linking do Google maps) to the map element
+  function addVioletButton() {
+    const mapContent = document.querySelector(".map-content");
+    // Create a new div
+    const mapButtonDiv = document.createElement("div");
+    mapButtonDiv.className = "map-content-button";
+    //  Place it inside map element
+    mapContent.appendChild(mapButtonDiv);
+
+    // Create new button
+    const purpleButton = document.createElement("a");
+    // Give it a class "lia-button" that other buttons on the page have, so that it is consistent with the others and a class "lia-button-purple" that will give it a purple color
+    purpleButton.className = "lia-button lia-button-purple";
+    purpleButton.innerText = "Go to Google Maps";
+    // Add link to google maps
+    purpleButton.href = "https://google.com/maps"
+    // Place it inside div element
+    mapButtonDiv.appendChild(purpleButton);
+  }
+  window.onload = addVioletButton;
+</script>
 
 </head>
 <body>
